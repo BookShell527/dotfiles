@@ -1,0 +1,92 @@
+set preview true
+set drawbox true
+set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/cleaner
+set ratios 1:2:3
+set icons true
+
+cmd open ${{
+	case $(file --mime-type "$f" -bL) in
+            text/*|application/json) $EDITOR "$f";;
+            *) setsid -f xdg-open "$f" >/dev/null 2>&1;;
+        esac
+}}
+
+cmd mkdir ${{
+      printf "Directory Name: "
+      read ans
+      mkdir $ans
+}}
+
+cmd mkfile ${{
+      printf "File Name: "
+      read ans
+      $EDITOR $ans
+}}
+
+cmd chmod ${{
+    printf "Mode Bits: "
+    read ans
+
+    for file in "$fx"
+        do
+            chmod $ans $file
+        done
+    lf -remote 'send reload'
+}}
+
+cmd setwallpaper %cp "$f" ~/.config/wall.png && xwallpaper --zoom "$f"
+
+# Archive bindings
+cmd unarchive ${{
+      case "$f" in
+            *.zip) unzip "$f" ;;
+            *.tar.gz) tar -xzvf "$f" ;;
+            *.tar.bz2) tar -xjvf "$f" ;;
+            *.tar) tar -xvf "$f" ;;
+	    *.rar) unrar e "$f" extracted/ ;;
+            *) echo "Unsupported format" ;;
+      esac
+                                      
+}}
+
+cmd zip %zip -r "$f" "$f"
+cmd tar %tar cvf "$f.tar" "$f"
+cmd targz %tar cvzf "$f.tar.gz" "$f"
+cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
+
+cmd trash %mv "$f" ~/.local/share/Trash/files
+
+# Bindings
+# Remove some defaults
+map m
+map o
+map n
+map "'"
+map '"'
+map d
+map c
+map e
+map f
+
+# Trash Mappings
+map dd trash
+
+# Basic Functions
+map . set hidden!
+map DD delete
+map p paste
+map x cut
+map y copy
+map <enter> open
+map mf mkfile
+map md mkdir
+map ms $mkscript
+map ch chmod
+map bg setwallpaper
+map r rename
+map H top
+map L bottom
+map R reload
+map C clear
+map U unselect

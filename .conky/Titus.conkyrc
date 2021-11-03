@@ -1,0 +1,135 @@
+conky.config = {
+
+	--Various settings
+
+	background = true, 							-- forked to background
+	cpu_avg_samples = 2,						-- The number of samples to average for CPU monitoring.
+	diskio_avg_samples = 10,					-- The number of samples to average for disk I/O monitoring.
+	double_buffer = true,						-- Use the Xdbe extension? (eliminates flicker)
+	if_up_strictness = 'address',				-- how strict if testing interface is up - up, link or address
+	net_avg_samples = 2,						-- The number of samples to average for net data
+	no_buffers = true,							-- Subtract (file system) buffers from used memory?
+	temperature_unit = 'celsius',				-- fahrenheit or celsius
+	text_buffer_size = 2048,					-- size of buffer for display of content of large variables - default 256
+	update_interval = 1,						-- update interval
+	imlib_cache_size = 0,                       -- disable image cache to get a new spotify cover per song
+
+
+	--Placement
+
+	alignment = 'bottom_right',
+	gap_x = 15,			
+	gap_y = 0,				
+	minimum_height = 300,			
+	minimum_width = 300,			
+	maximum_width = 300,			
+
+	--Graphical
+
+	border_inner_margin = 10, 					-- margin between border and text
+	border_outer_margin = 5, 					-- margin between border and edge of window
+	border_width = 0, 							-- border width in pixels
+	default_bar_width = 80,					-- default is 0 - full width
+	default_bar_height = 10,					-- default is 6
+	default_gauge_height = 25,					-- default is 25
+	default_gauge_width =40,					-- default is 40
+	default_graph_height = 40,					-- default is 25
+	default_graph_width = 0,					-- default is 0 - full width
+	default_shade_color = '#000000',			-- default shading colour
+	default_outline_color = '#000000',			-- default outline colour
+	draw_borders = true,						-- draw borders around text
+	draw_graph_borders = true,					-- draw borders around graphs
+	draw_shades = false,						-- draw shades
+	draw_outline = false,						-- draw outline
+	stippled_borders = 0,						-- dashing the border
+
+	--Textual
+
+	extra_newline = false,						-- extra newline at the end - for asesome's wiboxes
+	format_human_readable = true,				-- KiB, MiB rather then number of bytes
+	font = 'Iosevka Nerd Font:size=10',  				-- font for complete conky unless in code defined
+	max_text_width = 0,							-- 0 will make sure line does not get broken if width too smal
+	max_user_text = 16384,						-- max text in conky default 16384
+	override_utf8_locale = true,				-- force UTF8 requires xft
+	short_units = true,							-- shorten units from KiB to k
+	top_name_width = 21,						-- width for $top name value default 15
+	top_name_verbose = false,					-- If true, top name shows the full command line of  each  process - Default value is false.
+	uppercase = false,							-- uppercase or not
+	use_spacer = 'none',						-- adds spaces around certain objects to align - default none
+	use_xft = true,								-- xft font - anti-aliased font
+	xftalpha = 1,								-- alpha of the xft font - between 0-1
+
+	-- Windows
+
+	own_window = true,							-- create your own window to draw
+	own_window_argb_value = 255,			    -- real transparency - composite manager required 0-255
+	own_window_argb_visual = true,				-- use ARGB - composite manager required
+	own_window_colour = '#282C34',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',  -- if own_window true - just hints - own_window_type sets it
+	own_window_transparent = false,				-- if own_window_argb_visual is true sets background opacity 0%
+	own_window_title = 'system_conky',			-- set the name manually  - default conky "hostname"
+	own_window_type = 'override',				-- if own_window true options are: normal/override/dock/desktop/panel
+
+
+	--Colours
+
+	default_color = '#D9DDE2',
+    	color1 = '#FF6C6B',
+	color2 = '#98BE65',
+	color3 = '#DA8548',
+	color4 = '#51AFEF',
+	color5 = '#C678DD',
+	color6 = '#5699AF',
+
+	--Signal Colours
+	color7 = '#1F7411',  						--green
+	color8 = '#FFA726',  						--orange
+	color9 = '#F1544B',  						--firebrick
+
+    --Lua
+
+
+};
+
+conky.text = [[
+${color6}${voffset 4}${font GE Inspira:size=24}${alignc}${time %H}:${time %M} ${time %p}${font}${color}
+${color6}${voffset 4}${font GE Inspira:size=12}${alignc}${time %A} ${time %B} ${time %e}, ${time %Y}${font}${color}
+${color5}S Y S T E M   ${hr 2}${font}${color}
+${color2}Hostname:${color} ${alignr}${nodename}
+${color2}Kernel:${color}${alignr}${exec uname} ${exec uname -r}
+${color2}Distro:${color}${alignr}Arch $sysname
+${color2}Uptime:${color} ${alignr}${uptime}
+${color5}W M   S H O R T C U T   ${hr 2}${font}${color}
+${color2}Quit/Shutdown/Restart${color}${alignr}  + Shift + x
+${color2}Close App${color}${alignr}  + Shift + c
+${color2}Change Tag${color}${alignr}  + 1-9
+${color2}Move Window To Tag${color}${alignr}  + Shift + 1-9
+${color2}Start Menu${color}${alignr}  + d
+${color2}Switch Window Next${color}${alignr}  + k
+${color2}Switch Window Prev${color}${alignr}  + j
+${color2}Move Window Next${color}${alignr}  + Shift + k
+${color2}Move Window Prev${color}${alignr}  + Shift + j
+${color2}Increase Size${color}${alignr}  + l
+${color2}Decrease Size${color}${alignr}  + h
+${color2}Toggle Fullscreen${color}${alignr}  + f
+${color2}Toggle Floating${color}${alignr}  + s
+${color2}Layout Prev${color}${alignr}  + Shift + space
+${color2}Layout Next${color}${alignr}  + space
+${color2}Move Floating${color}${alignr}  + Drag Left 
+${color2}Resize Floating${color}${alignr}  + Drag Right 
+${color5}A P P   S H O R T C U T   ${hr 2}${font}${color}
+${color2}Terminal${color}${alignr}  + Enter
+${color2}Browser${color}${alignr}  + b
+${color2}File Manager${color}${alignr}  + Shift + e
+${color2}CLI File Manager${color}${alignr}  + e
+${color2}Task Manager${color}${alignr}  + o
+${color2}Color Picker${color}${alignr}  + c
+${color2}Music Player${color}${alignr}  + Shift + m
+${color2}Music Menu${color}${alignr}  + m
+${color2}Change Theme${color}${alignr}  + t
+${color2}Screenshot${color}${alignr} Prt Sc
+${color5}D R I V E S   ${hr 2}${font}${color}
+${color2}HDD:${color} ${alignr}${offset -10}${fs_used /} / ${fs_size /}${alignr}${fs_bar}
+${color2}I/O Read:${color} ${alignr}${offset -10}${diskio_read /dev/sda2}${alignr}${diskiograph_read sda2 8,100}
+${color2}I/O Write:${color} ${alignr}${offset -10}${diskio_write /dev/sda2}${alignr}${diskiograph_write sda2 8,100}
+]];
