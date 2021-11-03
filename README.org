@@ -1,0 +1,30 @@
+#+TITLE: Dotfiles Readme
+#+AUTHOR: Firsto Kurniaji
+
+* Table Of Contents :toc:
+- [[#installing-all-dependency][Installing All Dependency]]
+- [[#setup-emacs-for-development][Setup Emacs For Development]]
+  - [[#install-dependency-for-the-lsp][Install Dependency for the lsp.]]
+  - [[#install-doom-emacs][Install Doom Emacs]]
+
+* Installing All Dependency
+#+begin_src shell
+sudo pacman -S ttf-fira-code ttf-iosevka-nerd awesome conky \
+    emacs mu mbsync-git alacritty lightdm dunst nitrogen networkmanager-dmenu-git \
+    picom-ibhagwan-git batify2 xfce-polkit maim rofi lightdm-gtk-greeter \
+#+end_src
+
+* Setup Emacs For Development
+** Install Dependency for the lsp.
+#+begin_src shell
+npm i -g @tailwindcss/language-server prettier typescript-language-server svelte-language-server
+#+end_src
+** Install Doom Emacs
+#+begin_src shell
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+
+# Replace default doom configs with my dotfiles
+mv ~/dotfiles/.doom.d ~/.doom.d
+~/.emacs.d/bin/doom sync
+#+end_src
