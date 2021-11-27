@@ -12,17 +12,17 @@ local math, string, os = math, string, os
 local my_table = awful.util.table or gears.table
 
 do
-  local in_error = false
-  awesome.connect_signal("debug::error", function (err)
-    if in_error then return end
-    in_error = false
-  end)
+    local in_error = false
+    awesome.connect_signal("debug::error", function (err)
+        if in_error then return end
+        in_error = false
+    end)
 end
 
 beautiful.init("/home/tempp/.config/awesome/theme.lua")
-local terminal = "alacritty"
-local rofi_dir = "sh /home/tempp/.config/rofi/bin/"
-local modkey = "Mod4"
+terminal = "alacritty"
+rofi_dir = "sh /home/tempp/.config/rofi/bin/"
+modkey = "Mod4"
 
 mymainmenu = freedesktop.menu.build({
     icon_size = 16,
@@ -113,18 +113,6 @@ net.widget:buttons(
   )
 )
 
--- Weather
-local weather = lain.widget.weather({
-    APPID = api,
-    city_id = 1625822,
-    weather_na_markup = markup.fontfg(beautiful.font, beautiful.cyan, "N/A "),
-    settings = function ()
-        descr = weather_now["weather"][1]["description"]:lower()
-        units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup.fontfg(beautiful.font, beautiful.cyan, descr .. " " .. units .. "°C "))
-    end
-})
-
 function at_screen_connect(s)
     -- awful.tag({ " א ", " 二 ", " ג ", " 四 ", " ה ", " 六 ", " ז ", " 八 ", " ט " }, s, awful.layout.layouts[1])
     awful.tag({ "I", " II ", "III", " IV ", "V", " VI ", "VII", " VIII ", "IX " }, s, awful.layout.layouts[1])
@@ -168,7 +156,6 @@ function at_screen_connect(s)
         },
         {
             layout = wibox.layout.fixed.horizontal,
-            wibox.container.background(wibox.container.margin(weather.widget, 0, 0), beautiful.background),
         },
         {
             layout = wibox.layout.fixed.horizontal,
@@ -217,6 +204,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "e",       function () awful.spawn(terminal .. " -e lfrun")        end),
     awful.key({ modkey,           }, "o",       function () awful.spawn(terminal .. " -e gotop")        end),
     awful.key({ modkey, "Mod1"    }, "e",       function () awful.spawn("emacsclient -c")               end),
+    awful.key({ modkey, "Mod1"    }, "m",       function () awful.spawn("emacsclient -c -e '(mu4e)'")   end),
 
     -- Rofi program
     awful.key({ modkey,           }, "d",       function () awful.spawn(rofi_dir .. "launcher")     end),
@@ -280,7 +268,9 @@ for i = 1, 9 do
 end
 
 clientbuttons = gears.table.join(
-    awful.button({ }, 1, function (c) c:emit_signal("request::activate", "mouse_click", {raise = true}) end),
+    awful.button({ }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+    end),
     awful.button({ modkey }, 1, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
         awful.mouse.client.move(c)

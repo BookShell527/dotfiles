@@ -153,17 +153,6 @@ net.widget:buttons(
   )
 )
 
--- Weather
-local weather = lain.widget.weather({
-    APPID = api,
-    city_id = 1625822,
-    weather_na_markup = markup.fontfg(beautiful.font, beautiful.cyan, "N/A "),
-    settings = function ()
-        descr = weather_now["weather"][1]["description"]:lower()
-        units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup.fontfg(beautiful.font, beautiful.cyan, descr .. " " .. units .. "°C "))
-    end
-})
 #+end_src
 
 * Function To Initialize Bar For Each Screen
@@ -211,7 +200,6 @@ function at_screen_connect(s)
         },
         {
             layout = wibox.layout.fixed.horizontal,
-            wibox.container.background(wibox.container.margin(weather.widget, 0, 0), beautiful.background),
         },
         {
             layout = wibox.layout.fixed.horizontal,
