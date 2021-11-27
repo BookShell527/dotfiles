@@ -10,8 +10,10 @@
 - [[#org-mode][Org Mode]]
 - [[#mu4e][Mu4e]]
 - [[#treemacs][Treemacs]]
+- [[#neotree][Neotree]]
 - [[#keybindings][Keybindings]]
 - [[#javascript][Javascript]]
+- [[#dart--flutter][Dart & Flutter]]
 
 * About
 This is my personal configuration of Doom Emacs, source code in this ~README.org~ will be tangled to ~config.el~
@@ -73,17 +75,25 @@ This is my personal configuration of Doom Emacs, source code in this ~README.org
 * Treemacs
 #+begin_src emacs-lisp
 (setq treemacs-width 25)
+(lsp-treemacs-sync-mode 1)
+#+end_src
+
+* Neotree
+#+begin_src emacs-lisp
+(setq neo-window-width 25)
 #+end_src
 
 * Keybindings
 #+begin_src emacs-lisp
-(map! :leader :desc "Switch next windows" "l" #'evil-window-next)
-(map! :leader :desc "Switch previous windows" "k" #'evil-window-prev)
-(map! :leader :desc "Toggle Treemacs" "e" #'+treemacs/toggle)
+(map! :leader "l" #'evil-window-right)
+(map! :leader "k" #'evil-window-up)
+(map! :leader "j" #'evil-window-down)
+(map! :leader "h" #'evil-window-left)
+(map! :leader "e" #'+treemacs/toggle)
 (map! "C-<prior>" #'+tabs:next-or-goto)
 (map! "C-<next>" #'+tabs:previous-or-goto)
 (map! "C-S-w" #'kill-this-buffer)
-#+end_src`
+#+end_src
 
 * Javascript
 Set Tailwind as add-on so it's can run with other lsp
@@ -91,4 +101,12 @@ Set Tailwind as add-on so it's can run with other lsp
 (setq lsp-tailwindcss-add-on-mode 1)
 (use-package! lsp-tailwindcss)
 (add-hook 'js2-mode-hook 'web-mode-hook)
+#+end_src
+
+* Dart & Flutter
+#+begin_src emacs-lisp
+(setq lsp-dart-line-length 200)
+(setq lsp-dart-flutter-widget-guides nil)
+(setq lsp-dart-flutter-sdk-dir "/home/tempp/Application/dart-sdk")
+(setq lsp-dart-sdk-dir "/home/tempp/Application/flutter")
 #+end_src

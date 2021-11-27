@@ -5,29 +5,32 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local freedesktop = require("freedesktop")
 local lain = require("lain")
+local api = require("api")
 require("awful.autofocus")
 
 local math, string, os = math, string, os
 local my_table = awful.util.table or gears.table
 
 do
-    local in_error = false
-    awesome.connect_signal("debug::error", function (err)
-        if in_error then return end
-        in_error = false
-    end)
+  local in_error = false
+  awesome.connect_signal("debug::error", function (err)
+    if in_error then return end
+    in_error = false
+  end)
 end
 
 beautiful.init("/home/tempp/.config/awesome/theme.lua")
-terminal = "alacritty"
-rofi_dir = "sh /home/tempp/.config/rofi/bin/"
-modkey = "Mod4"
+local terminal = "alacritty"
+local rofi_dir = "sh /home/tempp/.config/rofi/bin/"
+local modkey = "Mod4"
 
 mymainmenu = freedesktop.menu.build({
     icon_size = 16,
     after = {
-        { "Terminal", terminal }, { "Log out", function() awesome.quit() end },
-        { "Sleep", "systemctl suspend" }, { "Restart", "systemctl reboot" },
+        { "Terminal", terminal },
+        { "Log out", function() awesome.quit() end },
+        { "Sleep", "systemctl suspend" },
+        { "Restart", "systemctl reboot" },
         { "Exit", "systemctl poweroff" },
     }
 })
@@ -67,9 +70,9 @@ local bat = lain.widget.bat({
             if bat_now.ac_status == 1 then
               widget:set_markup(markup.fontfg(beautiful.font, beautiful.blue, " "  .. bat_now.perc .. "% "))
               return
-            else widget:set_markup(markup.fontfg(beautiful.font, beautiful.blue, " " .. bat_now.perc .. "% "))
+            else
+              widget:set_markup(markup.fontfg(beautiful.font, beautiful.blue, " " .. bat_now.perc .. "% "))
             end
-            widget:set_markup(markup.fontfg(beautiful.font, beautiful.blue, " " .. bat_now.perc .. "% "))
         else
           widget:set_markup()
         end
@@ -112,7 +115,7 @@ net.widget:buttons(
 
 -- Weather
 local weather = lain.widget.weather({
-    APPID = "ca18167fd1f0901902df6f997e5c8422",
+    APPID = api,
     city_id = 1625822,
     weather_na_markup = markup.fontfg(beautiful.font, beautiful.cyan, "N/A "),
     settings = function ()
@@ -213,8 +216,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "a",       function () awful.spawn("chromium teams.microsoft.com") end),
     awful.key({ modkey,           }, "e",       function () awful.spawn(terminal .. " -e lfrun")        end),
     awful.key({ modkey,           }, "o",       function () awful.spawn(terminal .. " -e gotop")        end),
-    awful.key({ modkey, "Mod1"    }, "e",       function () awful.spawn("emacsclient -c -a 'emacs'")    end),
-    awful.key({ modkey, "Mod1"    }, "m",       function () awful.spawn("emacsclient -c -a 'emacs' -e '(mu4e)'")    end),
+    awful.key({ modkey, "Mod1"    }, "e",       function () awful.spawn("emacsclient -c")               end),
 
     -- Rofi program
     awful.key({ modkey,           }, "d",       function () awful.spawn(rofi_dir .. "launcher")     end),
@@ -253,7 +255,7 @@ globalkeys = gears.table.join(
 )
 
 clientkeys = gears.table.join(
-    awful.key({ modkey,           }, "f",   function (c)
+    awful.key({ modkey,          }, "f", function (c)
         c.fullscreen = not c.fullscreen
         c:raise()
     end),

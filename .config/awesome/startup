@@ -4,21 +4,20 @@ export PATH="${PATH}:$HOME/.config/awesome/bin"
 
 xrdb ~/.Xresources
 getcolors() {
-    FOREGROUND=$(xrdb -query | grep 'foreground:'| awk '{print $NF}')
-    BACKGROUND=$(xrdb -query | grep 'background:'| awk '{print $NF}')
-    BLACK=$(xrdb -query | grep 'color0:'| awk '{print $NF}')
-    RED=$(xrdb -query | grep 'color1:'| awk '{print $NF}')
-    GREEN=$(xrdb -query | grep 'color2:'| awk '{print $NF}')
-    YELLOW=$(xrdb -query | grep 'color3:'| awk '{print $NF}')
-    BLUE=$(xrdb -query | grep 'color4:'| awk '{print $NF}')
+  FOREGROUND=$(xrdb -query | grep 'foreground:'| awk '{print $NF}')
+  BACKGROUND=$(xrdb -query | grep 'background:'| awk '{print $NF}')
+  BLACK=$(xrdb -query | grep 'color0:'| awk '{print $NF}')
+  RED=$(xrdb -query | grep 'color1:'| awk '{print $NF}')
+  GREEN=$(xrdb -query | grep 'color2:'| awk '{print $NF}')
+  YELLOW=$(xrdb -query | grep 'color3:'| awk '{print $NF}')
+  BLUE=$(xrdb -query | grep 'color4:'| awk '{print $NF}')
 }
 getcolors
 
-killall -9 xsettingsd dunst picom batify polybar conky
+killall -9 dunst picom batify polybar conky emacs
 
 dunst -geom "280x50-10+34" -max_icon_size 16 -frame_width "1" -font "Iosevka Custom 9" -lb $BACKGROUND -lf $FOREGROUND -lfr $BLUE -nb $BACKGROUND -nf $FOREGROUND -nfr $BLUE -cb $BACKGROUND -cf $RED -cfr $RED &
 
-xsettingsd &
 if [[ ! `pidof xfce-polkit`  ]]; then
     /usr/lib/xfce-polkit/xfce-polkit &
 fi
@@ -29,7 +28,4 @@ batify -i 30 -l 20 -c 10 &
 emacs --daemon &
 
 nitrogen --restore &
-exec mpd &
 #conky -c /home/tempp/.conky/Titus.conkyrc &
-
-bspcolors &

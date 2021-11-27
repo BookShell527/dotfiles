@@ -6,5 +6,6 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
+alias dartfmt='dart format'
 PS1='[\u@\h \W]\$ '
 . "$HOME/.cargo/env"

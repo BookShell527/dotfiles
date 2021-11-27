@@ -3,20 +3,12 @@
 ## Copyright (C) 2020-2021 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
-DIR="$HOME/.config"
-rofi_command="rofi -theme $DIR/rofi/themes/screenshot.rasi"
+## Script to take screenshots with maim
 
 time=`date +%Y-%m-%d-%I-%M-%S`
 geometry=`xrandr | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
 dir="`xdg-user-dir PICTURES`/Screenshots"
 file="Screenshot_${time}_${geometry}.png"
-
-# Buttons
-screen=""
-area=""
-window=""
-infive=""
-inten=""
 
 # notify
 notify_user () {
@@ -37,7 +29,7 @@ countdown () {
 
 # take shots
 shotnow () {
-	cd ${dir} && sleep 0.5 && maim -u --quality 10 -f png "$file" && viewnior ${dir}/"$file"
+	cd ${dir} && maim -u -f png "$file" && viewnior ${dir}/"$file"
 	notify_user
 }
 
@@ -67,25 +59,18 @@ if [[ ! -d "$dir" ]]; then
 	mkdir -p "$dir"
 fi
 
-# Variable passed to rofi
-options="$screen\n$area\n$window\n$infive\n$inten"
+if [[ "$1" == "--now" ]]; then
+	shotnow
+elif [[ "$1" == "--in5" ]]; then
+	shot5
+elif [[ "$1" == "--in10" ]]; then
+	shot10
+elif [[ "$1" == "--win" ]]; then
+	shotwin
+elif [[ "$1" == "--area" ]]; then
+	shotarea
+else
+	echo -e "Available Options : --now --in5 --in10 --win --area"
+fi
 
-chosen="$(echo -e "$options" | $rofi_command -p 'Take Screenshot' -dmenu -selected-row 0)"
-case $chosen in
-    $screen)
-		shotnow
-        ;;
-    $area)
-		shotarea
-        ;;
-    $window)
-		shotwin
-		;;
-    $infive)
-		shot5
-		;;
-    $inten)
-		shot10
-        ;;
-esac
-
+exit 0

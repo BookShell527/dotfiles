@@ -1,7 +1,6 @@
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="spaceship"
-
 DISABLE_AUTO_UPDATE="true"
 plugins=(
     git
@@ -39,13 +38,18 @@ alias neo='neofetch'
 alias pcc='sudo pacman -R $(pacman -Qqtd)'
 alias p="pfetch | sed 's/Type1ProductConfigId//g' | sed 's/Archcraft/Arch/g'"
 alias u='paru -Syu'
-alias vim='nvim'
+alias vim='lvim'
 alias code='vscodium'
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias gtgr='git log --all --decorate --oneline --graph'
+alias gtlg='git log'
+alias gtst='git status'
+alias dartfmt='dart format'
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 export CHROME_EXECUTABLE=/usr/bin/chromium
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$HOME/.emacs.d/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH:$ANDROID_HOME/platform-tools:$HOME/npm/bin
-export EDITOR="nvim"
+#export PATH=$PATH:$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/.pub-cache/bin:$HOME/Application/dart-sdk/bin:$HOME/Application/flutter/bin
+export EDITOR="lvim"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"

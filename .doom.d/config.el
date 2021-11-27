@@ -40,7 +40,24 @@
         ("/kurniajijagad/Trash"      . ?t)))
 
 (setq treemacs-width 25)
+(lsp-treemacs-sync-mode 1)
+
+(setq neo-window-width 25)
+
+(map! :leader "l" #'evil-window-right)
+(map! :leader "k" #'evil-window-up)
+(map! :leader "j" #'evil-window-down)
+(map! :leader "h" #'evil-window-left)
+(map! :leader "e" #'+treemacs/toggle)
+(map! "C-<prior>" #'+tabs:next-or-goto)
+(map! "C-<next>" #'+tabs:previous-or-goto)
+(map! "C-S-w" #'kill-this-buffer)
 
 (setq lsp-tailwindcss-add-on-mode 1)
 (use-package! lsp-tailwindcss)
 (add-hook 'js2-mode-hook 'web-mode-hook)
+
+(setq lsp-dart-line-length 200)
+(setq lsp-dart-flutter-widget-guides nil)
+(setq lsp-dart-flutter-sdk-dir "/home/tempp/Application/dart-sdk")
+(setq lsp-dart-sdk-dir "/home/tempp/Application/flutter")
